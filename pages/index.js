@@ -1,88 +1,81 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React from 'react';
+import Head from 'next/head';
+import { Global, css } from '@emotion/core';
+import styled from '@emotion/styled';
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const MainSection = styled.section({
+	height: '80vh',
+	width: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	justifyContent: 'center'
+});
 
-    <Nav />
+const Title = styled.span(
+	{
+		font: 'Stencil Std, fantasy',
+		fontSize: '100px',
+		transition: 'opacity 2s ease-in-out',
+		opacity: 0
+	},
+	({ isVisible }) => ({ opacity: isVisible ? '1' : '0' })
+);
+const SubTitle = styled.span(
+	{
+		font: 'Stencil Std, fantasy',
+		fontSize: '75px',
+		transition: 'opacity 2s ease-in-out',
+		opacity: 0
+	},
+	({ isVisible }) => ({ opacity: isVisible ? '1' : '0' })
+);
 
-    <div className="hero">
-      <h1 className="title">Welcome to Next.js!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+const LinkSection = styled.div({
+	width: '50%',
+	display: 'flex',
+	flexDirection: 'row',
+	alignItems: 'center',
+	justifyContent: 'space-around',
+	marginTop: '20px'
+});
 
-      <div className="row">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
-      </div>
-    </div>
-
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-)
-
-export default Home
+const Home = () => {
+	const [displayTitle, setDisplayTitle] = React.useState(false);
+	const [displaySubTitle, setDisplaySubTitle] = React.useState(false);
+	React.useEffect(() => {
+		setDisplayTitle(true);
+		setTimeout(() => setDisplaySubTitle(true), 1000);
+	}, []);
+	return (
+		<div>
+			<Global
+				styles={css`
+					html,
+					body {
+						margin: 0;
+					}
+				`}
+			></Global>
+			<Head>
+				<title>Bryan Robicheau</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<MainSection>
+				<Title isVisible={displayTitle}>Bryan Robicheau</Title>
+				<SubTitle isVisible={displaySubTitle}>
+					Frontend Engineer, Albany NY
+				</SubTitle>
+				<LinkSection>
+					<a href="https://github.com/brobicheau">
+						<img src="/GitHub-Mark-64px.png"></img>
+					</a>
+					<a href="https://linkedin.com/in/bryan-robicheau">
+						<img src="/linkedin64.png"></img>
+					</a>
+				</LinkSection>
+			</MainSection>
+		</div>
+	);
+};
+export default Home;
