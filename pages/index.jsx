@@ -1,43 +1,45 @@
 import React from 'react';
 import Head from 'next/head';
-import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import Nav from '../components/Nav';
+import colors from '../styles/colors';
 
 const MainSection = styled.section({
-	height: '80vh',
 	width: '100%',
 	display: 'flex',
+	height: '80vh',
 	flexDirection: 'column',
 	alignItems: 'center',
-	justifyContent: 'center'
+	justifyContent: 'center',
+	color: colors.foreground
 });
+
+const fadeIn = ({ isVisible }) => ({ opacity: isVisible ? '1' : '0' });
 
 const Title = styled.span(
 	{
-		font: 'Stencil Std, fantasy',
+		fontFamily: "'Cardo', serif",
 		fontSize: '100px',
 		transition: 'opacity 2s ease-in-out',
-		opacity: 0
+		opacity: 0,
+		marginTop: '20px'
 	},
-	({ isVisible }) => ({ opacity: isVisible ? '1' : '0' })
+	fadeIn
 );
 const SubTitle = styled.span(
 	{
-		font: 'Stencil Std, fantasy',
-		fontSize: '75px',
+		fontFamily: "'Cardo', serif",
+		fontSize: '30px',
+		color: colors.subtext,
 		transition: 'opacity 2s ease-in-out',
+		marginTop: '30px',
 		opacity: 0
 	},
-	({ isVisible }) => ({ opacity: isVisible ? '1' : '0' })
+	fadeIn
 );
 
-const LinkSection = styled.div({
-	width: '50%',
-	display: 'flex',
-	flexDirection: 'row',
-	alignItems: 'center',
-	justifyContent: 'space-around',
-	marginTop: '20px'
+const BigCode = styled.span({
+	fontSize: '300px'
 });
 
 const Home = () => {
@@ -48,34 +50,20 @@ const Home = () => {
 		setTimeout(() => setDisplaySubTitle(true), 1000);
 	}, []);
 	return (
-		<div>
-			<Global
-				styles={css`
-					html,
-					body {
-						margin: 0;
-					}
-				`}
-			></Global>
+		<>
 			<Head>
 				<title>Bryan Robicheau</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<Nav></Nav>
 			<MainSection>
+				<BigCode>{'< / >'}</BigCode>
 				<Title isVisible={displayTitle}>Bryan Robicheau</Title>
 				<SubTitle isVisible={displaySubTitle}>
-					Frontend Engineer, Albany NY
+					Frontend Engineer
 				</SubTitle>
-				<LinkSection>
-					<a href="https://github.com/brobicheau">
-						<img src="/GitHub-Mark-64px.png"></img>
-					</a>
-					<a href="https://linkedin.com/in/bryan-robicheau">
-						<img src="/linkedin64.png"></img>
-					</a>
-				</LinkSection>
 			</MainSection>
-		</div>
+		</>
 	);
 };
 export default Home;
